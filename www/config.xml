@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.cordova.Honda_dash" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Honda_dash</name>
+    <description>
+        PhoneGap app for Honda_dash via Bluetooth Serial
+    </description>
+    <author href="https://github.com/gigashm">
+        guigashm
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="fullscreen" value="false" />
+    <preference name="DisallowOverscroll" value="true" />        
+</widget>
