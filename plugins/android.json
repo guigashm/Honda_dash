@@ -9,7 +9,17 @@
     "installed_plugins": {
         "cordova-plugin-bluetooth-serial": {
             "PACKAGE_NAME": "com.cordova.Honda_dash"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.cordova.Honda_dash"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.cordova.Honda_dash"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.cordova.Honda_dash"
+        }
+    }
 }
