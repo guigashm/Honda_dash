@@ -16,19 +16,10 @@ var app = {
 		deviceList.ontouchstart = app.connect; // assume not scrolling
 		refreshButton.ontouchstart = app.list;
 		toRedButton.ontouchstart = app.colorToRed;
-		// throttle changes
-		var throttledOnColorChange = _.throttle(app.onColorChange, 200);
-		$('input').on('change', throttledOnColorChange);
+		// Bluetooth list
 		app.list();
 	}
-	, ////////////
-	colorToRed: function (e) {
-		var rpm100 = document.getElementById("RPM_100");
-		rpm100.style.setProperty("fill", "#ff0000");
-		console.log("bar 100 to red ");
-	}
-	, //////////////
-	list: function (event) {
+	, list: function (event) {
 		deviceList.firstChild.innerHTML = "Discovering...";
 		app.setStatus("Looking for Bluetooth Devices...");
 		bluetoothSerial.list(app.ondevicelist, app.generateFailureFunction("List Failed"));
@@ -50,32 +41,39 @@ var app = {
 		colorScreen.hidden = false;
 		app.setStatus("Connected.");
 		connectionScreen.hidden = true;
+		app.getFromArduino();
 	}
 	, ondisconnect: function () {
-		connectionScreen.hidden = false;
-		connectionScreen.hidden = true;
-		colorScreen.hidden = true;
-		app.setStatus("Disconnected.");
+			connectionScreen.hidden = false;
+			connectionScreen.hidden = true;
+			colorScreen.hidden = true;
+			app.setStatus("Disconnected.");
+		}
+/////////////////////////////////////////////////////////////
+		
+	, getFromArduino: function (c) {
+		// set up a listener to listen for newlines and display any new data that's come in since the last newline:
+		bluetoothSerial.subscribe('\n', function (data) {
+			app.changeRpm(data);
+			console.log(data);
+		});
+		//			bluetoothSerial.read( "RPM_" + c + "\n");
+		//			if ( c == true ) {
+		//				app.changeRpm(c)
+		//			};				
 	}
-	, onColorChange: function (evt) {
-		var c = app.getColor();
-		rgbText.innerText = c;
-		previewColor.style.backgroundColor = "rgb(" + c + ")";
-		//app.sendToArduino(c);
+	, colorToRed: function (e) {
+		var rpm100 = document.getElementById("RPM_100");
+		rpm100.style.setProperty("fill", "#ff0000");
+		console.log("bar 100 to red ");
 	}
-	, getColor: function () {
-		var color = [];
-		color.push(red.value);
-		color.push(green.value);
-		color.push(blue.value);
-		return color.join(',');
+	, changeRpm: function (rpm) {
+		console.log("bar RPM_" + rpm + "to color ");
+		var rpmBar = document.getElementById("RPM_" + rpm);
+		rpmBar.style.setProperty("fill", "#FFA700");
 	}
-	, receiveFromArduino: function (c) {
-		bluetoothSerial.read("c" + c + "\n");
-	}
-	, sendToArduino: function (c) {
-		bluetoothSerial.write("c" + c + "\n");
-	}
+///////////////////////////////////////////////////////////////
+	
 	, timeoutId: 0
 	, setStatus: function (status) {
 		if (app.timeoutId) {
