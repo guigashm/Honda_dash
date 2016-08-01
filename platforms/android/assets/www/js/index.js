@@ -9,13 +9,15 @@ var app = {
     bind: function() {
         document.addEventListener('deviceready', this.deviceready, false);
         colorScreen.hidden = true;
+        connectionScreen.hidden = false;
+         dashScreen.hidden = false;
     },
     deviceready: function() {
 
         // wire buttons to functions
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.list;
-        disconnectButton.ontouchstart = app.disconnect;
+        toRedButton.ontouchstart = app.colorToRed;
 
         // throttle changes
         var throttledOnColorChange = _.throttle(app.onColorChange, 200);
@@ -23,6 +25,14 @@ var app = {
         
         app.list();
     },
+////////////
+    colorToRed: function (e) {
+        var rpm100 = document.getElementById("RPM_100");
+        rpm100.style.setProperty("fill", "#ff0000");
+        console.log("bar 100 to red ");
+    },
+//////////////
+
     list: function(event) {
         deviceList.firstChild.innerHTML = "Discovering...";
         app.setStatus("Looking for Bluetooth Devices...");
@@ -45,11 +55,11 @@ var app = {
     },
     onconnect: function() {
         connectionScreen.hidden = true;
-        colorScreen.hidden = false;
+        colorScreen.hidden = true;
         app.setStatus("Connected.");
     },
     ondisconnect: function() {
-        connectionScreen.hidden = false;
+        connectionScreen.hidden = true;
         colorScreen.hidden = true;
         app.setStatus("Disconnected.");
     },
@@ -57,7 +67,7 @@ var app = {
         var c = app.getColor();
         rgbText.innerText = c;
         previewColor.style.backgroundColor = "rgb(" + c + ")";
-        app.sendToArduino(c);
+        //app.sendToArduino(c);
     },
     getColor: function () {
         var color = [];
@@ -65,6 +75,9 @@ var app = {
         color.push(green.value);
         color.push(blue.value);
         return color.join(',');
+    },
+    receiveFromArduino: function(c) {
+        bluetoothSerial.read("c" + c + "\n");
     },
     sendToArduino: function(c) {
         bluetoothSerial.write("c" + c + "\n");
