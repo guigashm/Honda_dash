@@ -10,7 +10,7 @@ var app = {
         document.addEventListener('deviceready', this.deviceready, false);
         colorScreen.hidden = true;
         connectionScreen.hidden = false;
-         dashScreen.hidden = false;
+        dashScreen.hidden = false;
     },
     deviceready: function() {
 
@@ -55,7 +55,7 @@ var app = {
     },
     onconnect: function() {
         connectionScreen.hidden = true;
-        colorScreen.hidden = true;
+        colorScreen.hidden = false;
         app.setStatus("Connected.");
     },
     ondisconnect: function() {
