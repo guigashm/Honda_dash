@@ -45,35 +45,35 @@ var app = {
 	}
 	, ondisconnect: function () {
 			connectionScreen.hidden = false;
-			connectionScreen.hidden = true;
-			colorScreen.hidden = true;
+			connectionScreen.hidden = false;
+			colorScreen.hidden = false;
 			app.setStatus("Disconnected.");
 		}
-/////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////
 		
 	, getFromArduino: function (c) {
 		// set up a listener to listen for newlines and display any new data that's come in since the last newline:
-		bluetoothSerial.subscribe('\n', function (data) {
+		bluetoothSerial.subscribe('N', function (data) {
+			rpmText.innerText = "RPM:" + data;
 			app.changeRpm(data);
 			console.log(data);
 		});
-		//			bluetoothSerial.read( "RPM_" + c + "\n");
-		//			if ( c == true ) {
-		//				app.changeRpm(c)
-		//			};				
 	}
 	, colorToRed: function (e) {
 		var rpm100 = document.getElementById("RPM_100");
 		rpm100.style.setProperty("fill", "#ff0000");
 		console.log("bar 100 to red ");
 	}
-	, changeRpm: function (rpm) {
-		console.log("bar RPM_" + rpm + "to color ");
-		var rpmBar = document.getElementById("RPM_" + rpm);
-		rpmBar.style.setProperty("fill", "#FFA700");
-	}
-///////////////////////////////////////////////////////////////
-	
+	, changeRpm: function (i_rpm) {
+			console.log("bar RPM_" + i_rpm + "to color ");
+		    i_rpm = "RPM_" + i_rpm;
+			var rpmBar = document.getElementById(i_rpm);
+			if (rpmBar === true) {
+				rpmBar.style.setProperty("fill", "#FFA700");
+			};
+		}
+		///////////////////////////////////////////////////////////////
+
 	, timeoutId: 0
 	, setStatus: function (status) {
 		if (app.timeoutId) {
