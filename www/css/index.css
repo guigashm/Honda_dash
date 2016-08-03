@@ -1,38 +1,62 @@
-    html, body {
-      margin: 0;
-      padding: 0;
-      vertical-align: top;
-        text-align: center;
+    html,
+    body {
+    	margin: 0;
+    	padding: 0;
+    	vertical-align: top;
+    	text-align: center;
     }
 
-/*
-body { 
-    text-align: center;
-}
-*/
+    select {
+    	min-width: 100px;
+    }
 
-select {
-    min-width: 100px;
-}
+    input {
+    	width: 100%;
+    }
 
-input { 
-/*    display:block;
-    margin-top: 30px;
-    margin-bottom: 30px;
-*/    width: 100%;
-}
+    .rangeDiv {
+    	margin-top: 1px;
+    	margin-bottom: 1px;
+    }
 
-.rangeDiv {
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
+    #previewColor {
+    	background-color: #ff0000;
+    	width: 100%;
+    	height: 10px
+    }
 
-#previewColor {
-    background-color: #000000;
-    width: 100%;
-    height: 10px
-}
+    #output {
+    	font-size: 4em;
+    }
 
-#output {
-    font-size: 4em;
-}
+    .st0 {
+    	fill: none;
+    }
+
+    .st1 {
+    	fill: #9d6e16;
+    }
+
+    .st2 {
+    	fill: #FF2600;
+    }
+
+    .st3 {
+    	fill: #CDDCE5;
+    }
+
+    .st4 {
+    	fill: #aa6137;
+    }
+
+    .st5 {
+    	fill: #8D1000;
+    }
+
+    #rpmText {
+    	color: yellow;
+    }
+
+    #deviceList {
+    	color: yellow;
+    }
