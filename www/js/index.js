@@ -55,7 +55,7 @@ var app = {
 		// set up a listener to listen for newlines and display any new data that's come in since the last newline:
 		bluetoothSerial.subscribe('\n', function (data) {
 			rpmText.innerText = "RPM:" + data;
-			var dataRpm = data.substring(1, data.length - 2);
+			var dataRpm = data.substring(0, data.length - 2);
 			console.log(dataRpm);
 			app.changeRpm(dataRpm);
 			console.log(data);
@@ -70,7 +70,7 @@ var app = {
 			console.log("bar RPM_" + i_rpm + "to color ");
 			i_rpm = "RPM_" + i_rpm;
 			var rpmBar = document.getElementById(i_rpm);
-			if (rpmBar === "") {
+			if (rpmBar !== "") {
 				rpmBar.style.setProperty("fill", "#FFA700");
 			};
 		}
