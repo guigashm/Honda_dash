@@ -84,7 +84,7 @@ var app = {
 					rpmBar.style.setProperty("fill", "red");
 				}
 				else {
-					rpmBar.style.setProperty("fill", "#FFA700");
+					rpmBar.style.setProperty("fill", "#a06e0e");
 				};
 			};
 		};
