@@ -70,14 +70,14 @@ var app = {
 		var i = 0;
 		console.log("bar RPM_" + i_rpm + "to color ");
 		for (i = 0; i < i_rpm; i++) {
-			var l_rpm = "RPM_" + i_rpm;
+			var l_rpm = "RPM_" + i;
 			var rpmBar = document.getElementById(l_rpm);
 			if (rpmBar !== "") {
 				rpmBar.style.setProperty("fill", "#FFA700");
 			};
 		};
 		for (i = 100; i > i_rpm; i--) {
-			var l_rpm = "RPM_" + i_rpm;
+			var l_rpm = "RPM_" + i;
 			var rpmBar = document.getElementById(l_rpm);
 			if (rpmBar !== "") {
 				if (i_rpm > 80) {
