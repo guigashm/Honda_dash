@@ -15,9 +15,13 @@ var app = {
 		// wire buttons to functions
 		deviceList.ontouchstart = app.connect; // assume not scrolling
 		refreshButton.ontouchstart = app.list;
-		toRedButton.ontouchstart = app.colorToRed;
 		// Bluetooth list
-		app.list();
+		var device = ('98:D3:31:60:42:C6');
+		bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);
+		for (var i = 0; i < 1000000; i++) {};
+		if (bluetoothSerial.connect = false) {
+			app.list();
+		};
 	}
 	, list: function (event) {
 		deviceList.firstChild.innerHTML = "Discovering...";
@@ -50,45 +54,87 @@ var app = {
 			app.setStatus("Disconnected.");
 		}
 		/////////////////////////////////////////////////////////////
-		
+	, blinkTimer: 0
+	, on_off: 0
 	, getFromArduino: function (c) {
-		// set up a listener to listen for newlines and display any new data that's come in since the last newline:
-		bluetoothSerial.subscribe('\n', function (data) {
-			rpmText.innerText = "RPM:" + data;
-			var dataRpm = data.substring(0, data.length - 2);
-			console.log(dataRpm);
-			app.changeRpm(dataRpm);
-			console.log(data);
-		});
-	}
-	, colorToRed: function (e) {
-		var rpm100 = document.getElementById("RPM_100");
-		rpm100.style.setProperty("fill", "#ff0000");
-		console.log("bar 100 to red ");
-	}
+			// set up a listener to listen for newlines and display any new data that's come in since the last newline:
+			bluetoothSerial.subscribe('\n', function (data) {
+				rpmText.innerText = "RPM:" + data;
+				var dataRpm = data.substring(0, data.length - 2);
+				console.log(dataRpm);
+				app.changeRpm(dataRpm);
+				console.log(data);
+			});
+		}
+
 	, changeRpm: function (i_rpm) {
 		var i = 0;
 		console.log("bar RPM_" + i_rpm + "to color ");
-		for (i = 0; i < i_rpm; i++) {
+		for (i = 0; i > i_rpm, i < 82; i++) {
 			var l_rpm = "RPM_" + i;
 			var rpmBar = document.getElementById(l_rpm);
 			if (rpmBar !== "") {
-				rpmBar.style.setProperty("fill", "#FFA700");
-			};
-		};
-		for (i = 100; i > i_rpm; i--) {
-			var l_rpm = "RPM_" + i;
-			var rpmBar = document.getElementById(l_rpm);
-			if (rpmBar !== "") {
-				if (i_rpm > 80) {
-					rpmBar.style.setProperty("fill", "red");
+				if (i_rpm < 83 && i_rpm < i) {
+					rpmBar.style.setProperty("fill", "#8d5c00");
 				}
 				else {
-					rpmBar.style.setProperty("fill", "#a06e0e");
-				};
-			};
-		};
+					if (i_rpm < 83 && i_rpm > i) {
+						rpmBar.style.setProperty("fill", "#FFA700");
+					}
+				}
+			}
+		}
+		i = 0;
+		for (i = 82 ; i > i_rpm, i < 90; i++) {
+			var l_rpm = "RPM_" + i;
+			var rpmBar = document.getElementById(l_rpm);
+			if (rpmBar !== "") {
+				if (i_rpm > 80 && i_rpm < i) {
+					rpmBar.style.setProperty("fill", "#770000");
+				}
+				else {
+					if (i_rpm > 80 && i_rpm > i) {
+						rpmBar.style.setProperty("fill", "red");
+					}
+				}
+			}
+		}
+		if (i_rpm > 81 && app.blinkTimer === 0) {
+			app.blinkTimer = setInterval(function () {app.blink()}, 50); //100 is milliseconds,determines how often the interval
+		}
+		else {
+			app.on_off = 0;
+			clearInterval(app.blinkTimer);
+			app.blinkTimer = 0;
+		}
 	}
+	, blink: function () {
+			var i = 0;
+			switch (app.on_off) {
+			case 0:
+				i = 0;
+				for (i = 85; i < 101; i++) {
+					var l_rpm = "RPM_" + i;
+					var rpmBar = document.getElementById(l_rpm);
+					if (rpmBar !== "") {
+						rpmBar.style.setProperty("fill", "#770000");
+						app.on_off = 1;
+					}
+				}
+				break;
+			case 1:
+				i = 0;
+				for (i = 85; i < 101; i++) {
+					var l_rpm = "RPM_" + i;
+					var rpmBar = document.getElementById(l_rpm);
+					if (rpmBar !== "") {
+						rpmBar.style.setProperty("fill", "red");
+						app.on_off = 0;
+					}
+				}
+				break;
+			}
+		}
 		///////////////////////////////////////////////////////////////
 
 	, timeoutId: 0
@@ -109,7 +155,7 @@ var app = {
 		devices.forEach(function (device) {
 			listItem = document.createElement('li');
 			listItem.className = "topcoat-list__item";
-			if (device.hasOwnProperty("uuid")) { // TODO https://github.com/don/BluetoothSerial/issues/5
+			if (device.hasOwnProperty("uuid")) {
 				deviceId = device.uuid;
 			}
 			else if (device.hasOwnProperty("address")) {
