@@ -5,62 +5,205 @@
     	vertical-align: top;
     	text-align: center;
     }
+    
+    @font-face {
+    	font-family: redSeven;
+    	font-weight: bold;
+    	src: url("../font/Red Seven.otf");
+    }
+    
+    @font-face {
+    	font-family: digital-7;
+    	font-weight: bold;
+    	src: url("../font/digital_7_italic.ttf");
+    }
+    
+    #gSpeed {
+/*    	position: relative;*/
+    	vertical-align: top;
+    	padding: 0;
+    	margin: 0;
+    	background: transparent;
+    	border: none;
+		width: 960px;
+    }
+    
+    .dashText {
+    	color: #9d6e16;
+    	font-family: redSeven;
+    }
+    
+#watertemp {
+	display:inline-block;
+	border-style: none;
+}
 
+
+    #speedText {
+    	font-family: digital-7;
+    	color: #FFA700;
+    	font-size: 200px;
+    	text-align: right;
+    	border-width: 0px;
+		width: 320px;
+		display: inline-block;
+    }
+    
+    #speedUnit {
+    	font-family: redSeven;
+    	text-align: left;
+    	color: #FFA700;
+    	font-weight: bold;
+    	border-width: 0px;
+		display:inline;
+		padding-right:0px;
+    }
+
+	#fuel {
+		border-style: none;
+		display:inline-block;
+		border-style: none;
+	}
+    
+    #output {
+    	font-size: 4em;
+    }
+    
+    .st0 {
+    	fill: none;
+    }
+    
+    .st1 {
+    	fill: #9d6e16;
+    }
+    
+    .st2 {
+    	fill: #FF2600;
+    }
+    
+    .st3 {
+    	fill: #CDDCE5;
+    }
+    
+    .st4 {
+    	fill: #aa6137;
+    }
+    
+    .st5 {
+    	fill: #8D1000;
+    }
+    
+    #deviceList {
+    	color: #1400ff;
+    }
+    
+    #messageDiv {
+    	color: yellow;
+    }
+    
     select {
     	min-width: 100px;
     }
-
+    
     input {
     	width: 100%;
     }
-
+    
     .rangeDiv {
     	margin-top: 1px;
     	margin-bottom: 1px;
     }
-
+    
     #previewColor {
     	background-color: #ff0000;
     	width: 100%;
-    	height: 10px
+    	height: 40px
     }
-
-    #output {
-    	font-size: 4em;
+    
+    #fuel {
+    	border: 1px dotted gray;
+    	display: inline-block;
+    	margin-left: -136px;
+    	width: 221px;
+    	margin-top: -121px;
+    	height: 36px;
     }
-
-    .st0 {
+    
+    .fuel {
+    	border: 1px dotted gray;
+    	width: 9px;
+    	height: 35px;
+    	display: inline-block;
+    	left: -88.5px;
+    	top: -2px;
+    	position: static;
+    	float: left;
+    	margin-left: 1px;
+    	margin-top: 0px;
+    	background-color: rgb(77, 46, 1);
+    }
+    
+    #waterTemp {
+    	border: 1px dotted gray;
+    	display: inline-block;
+    	margin-left: -136px;
+    	width: 221px;
+    	margin-top: -121px;
+    	height: 36px;
+    }
+    
+    .waterTemp {
+    	border: 1px dotted gray;
+    	width: 9px;
+    	height: 35px;
+    	display: inline-block;
+    	left: -88.5px;
+    	top: -2px;
+    	position: static;
+    	float: left;
+    	margin-left: 1px;
+    	margin-top: 0px;
+    	background-color: rgb(77, 46, 1);
+    }
+    
+    .stf0 {
+    	fill: #FF0000;
+    }
+    
+    .stf1 {
+    	fill: #42210B;
+    }
+    
+    .stf2 {
     	fill: none;
     }
-
-    .st1 {
-    	fill: #9d6e16;
+    
+    .stf3 {
+    	fill: #FFFFFF;
     }
-
-    .st2 {
-    	fill: #FF2600;
+    
+    .stf4 {
+    	font-family: 'MyriadPro-Regular';
     }
-
-    .st3 {
-    	fill: #CDDCE5;
+    
+    .stf5 {
+    	font-size: 24px;
     }
-
-    .st4 {
-    	fill: #aa6137;
+    
+    .stf6 {
+    	fill: #FFFFFF;
+    	stroke: #FFFFFF;
+    	stroke-width: 4;
+    	stroke-miterlimit: 10;
     }
-
-    .st5 {
-    	fill: #8D1000;
+    
+    .stf7 {
+    	fill: #FFFFFF;
+    	stroke: #FFFFFF;
+    	stroke-width: 3;
+    	stroke-miterlimit: 10;
     }
-
-    #rpmText {
-    	color: yellow;
-    }
-
-    #deviceList {
-    	color: #1400ff;
-    }
-
-    #messageDiv {
-    	color: yellow;
+    
+    .stf8 {
+    	fill: #004eff;
     }

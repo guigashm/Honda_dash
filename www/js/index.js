@@ -1,5 +1,5 @@
 /* jshint quotmark: false, unused: vars, browser: true */
-/* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList, previewColor, red, green, blue, disconnectButton, connectionScreen, colorScreen, rgbText, messageDiv */
+/* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList, previewColor, red, green, blue, disconnectButton, connectionScreen, warningScreen, rgbText, messageDiv */
 'use strict';
 var app = {
 	initialize: function () {
@@ -7,9 +7,10 @@ var app = {
 	}
 	, bind: function () {
 		document.addEventListener('deviceready', this.deviceready, false);
-		colorScreen.hidden = true;
+		warningScreen.hidden = true;
 		connectionScreen.hidden = false;
 		dashScreen.hidden = false;
+		speedUnit.innerText = "KM/H";
 	}
 	, deviceready: function () {
 		// wire buttons to functions
@@ -20,7 +21,7 @@ var app = {
 		bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);
 		for (var i = 0; i < 1000000; i++) {};
 		if (bluetoothSerial.connect = false) {
-			app.list();
+		app.list();
 		};
 	}
 	, list: function (event) {
@@ -42,15 +43,14 @@ var app = {
 		bluetoothSerial.disconnect(app.ondisconnect);
 	}
 	, onconnect: function () {
-		colorScreen.hidden = false;
+		warningScreen.hidden = true;
 		app.setStatus("Connected.");
 		connectionScreen.hidden = true;
 		app.getFromArduino();
 	}
 	, ondisconnect: function () {
 			connectionScreen.hidden = false;
-			connectionScreen.hidden = false;
-			colorScreen.hidden = false;
+			warningScreen.hidden = false;
 			app.setStatus("Disconnected.");
 		}
 		/////////////////////////////////////////////////////////////
@@ -59,22 +59,23 @@ var app = {
 	, getFromArduino: function (c) {
 			// set up a listener to listen for newlines and display any new data that's come in since the last newline:
 			bluetoothSerial.subscribe('\n', function (data) {
-				rpmText.innerText = "RPM:" + data;
-				var dataRpm = data.substring(0, data.length - 2);
-				console.log(dataRpm);
+				var dataSpd = data.substring(3, data.search("rpm"));
+				var dataRpm = data.substring(data.search("rpm")+3, data.length - 2);
+				rpmText.innerText = "RPM:" + dataRpm;
+				speedText.innerText = dataSpd;
 				app.changeRpm(dataRpm);
-				console.log(data);
 			});
 		}
 
 	, changeRpm: function (i_rpm) {
+		var redLine = 81;
 		var i = 0;
 		console.log("bar RPM_" + i_rpm + "to color ");
-		for (i = 0; i > i_rpm, i < 82; i++) {
+		for (i = 0; i > i_rpm, i < redLine; i++) {
 			var l_rpm = "RPM_" + i;
 			var rpmBar = document.getElementById(l_rpm);
 			if (rpmBar !== "") {
-				if (i_rpm < 83 && i_rpm < i) {
+				if (i_rpm < redLine + 1 && i_rpm < i) {
 					rpmBar.style.setProperty("fill", "#8d5c00");
 				}
 				else {
@@ -85,27 +86,34 @@ var app = {
 			}
 		}
 		i = 0;
-		for (i = 82 ; i > i_rpm, i < 90; i++) {
+		for (i = redLine ; i > i_rpm, i < 90; i++) {
 			var l_rpm = "RPM_" + i;
 			var rpmBar = document.getElementById(l_rpm);
 			if (rpmBar !== "") {
-				if (i_rpm > 80 && i_rpm < i) {
+				if (i_rpm > redLine - 2 && i_rpm < i) {
 					rpmBar.style.setProperty("fill", "#770000");
 				}
 				else {
-					if (i_rpm > 80 && i_rpm > i) {
+					if (i_rpm > redLine - 2 && i_rpm > i) {
 						rpmBar.style.setProperty("fill", "red");
 					}
 				}
 			}
 		}
-		if (i_rpm > 81 && app.blinkTimer === 0) {
+		if (i_rpm > redLine - 1 && app.blinkTimer === 0) {
 			app.blinkTimer = setInterval(function () {app.blink()}, 50); //100 is milliseconds,determines how often the interval
 		}
 		else {
-			app.on_off = 0;
 			clearInterval(app.blinkTimer);
 			app.blinkTimer = 0;
+			i = 0;
+			for (i = 85; i < 101; i++) {
+				var l_rpm = "RPM_" + i;
+				var rpmBar = document.getElementById(l_rpm);
+				if (rpmBar !== "") {
+					rpmBar.style.setProperty("fill", "#770000");
+				}
+			}
 		}
 	}
 	, blink: function () {
