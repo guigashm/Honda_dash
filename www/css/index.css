@@ -31,6 +31,17 @@
     .dashText {
     	color: #9d6e16;
     	font-family: redSeven;
+    	display: inline-block;
+		margin-right: 2px;
+		text-align: left;
+    }
+
+    .dashTextVal {
+    	color: #FFA700;
+    	font-family: redSeven;
+    	display: inline-block;
+		margin-right: 30px;
+		text-align: right;
     }
     
 #watertemp {

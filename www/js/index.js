@@ -59,10 +59,17 @@ var app = {
 	, getFromArduino: function (c) {
 			// set up a listener to listen for newlines and display any new data that's come in since the last newline:
 			bluetoothSerial.subscribe('\n', function (data) {
-				var dataSpd = data.substring(3, data.search("rpm"));
+				var dataThrPos = data.substring(3, data.search("vlt"));
+				var dataVolt = data.substring(data.search("vlt")+3, data.search("tco"));
+				var dataTempCool = data.substring(data.search("tco")+3, data.search("spd"));
+				var dataSpd = data.substring(data.search("spd")+3, data.search("rpm"));
 				var dataRpm = data.substring(data.search("rpm")+3, data.length - 2);
-				rpmText.innerText = "RPM:" + dataRpm;
+				
 				speedText.innerText = dataSpd;
+				thrPosText.innerText = "ThrPos:" + dataThrPos;
+				voltText.innerText = "Volt:" + dataVolt;
+				tempCoolText.innerText = dataTempCool;
+			    rpmText.innerText = "RPM:" + dataRpm;
 				app.changeRpm(dataRpm);
 			});
 		}
