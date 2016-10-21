@@ -65,12 +65,11 @@ var app = {
 				var dataSpd = data.substring(data.search("spd")+3, data.search("rpm"));
 				var dataRpm = data.substring(data.search("rpm")+3, data.length - 2);
 				
-				speedText.innerText = dataSpd;
-				thrPosText.innerText = "ThrPos:" + dataThrPos;
-				voltText.innerText = "Volt:" + dataVolt;
-				tempCoolText.innerText = dataTempCool;
-			    rpmText.innerText = "RPM:" + dataRpm;
 				app.changeRpm(dataRpm);
+				speedText.innerText = dataSpd;
+				thrPosTextVal.innerText = dataThrPos;
+				voltTextVal.innerText = dataVolt;
+				tempCoolTextVal.innerText = dataTempCool;
 			});
 		}
 
