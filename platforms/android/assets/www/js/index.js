@@ -60,7 +60,8 @@ var app = {
 			// set up a listener to listen for newlines and display any new data that's come in since the last newline:
 			bluetoothSerial.subscribe('\n', function (data) {
 				var dataThrPos = data.substring(3, data.search("vlt"));
-				var dataVolt = data.substring(data.search("vlt")+3, data.search("tco"));
+				var dataVolt = data.substring(data.search("vlt")+3, data.search("flv"));
+				var dataFlv = data.substring(data.search("flv")+3, data.search("tco"));
 				var dataTempCool = data.substring(data.search("tco")+3, data.search("spd"));
 				var dataSpd = data.substring(data.search("spd")+3, data.search("rpm"));
 				var dataRpm = data.substring(data.search("rpm")+3, data.length - 2);
@@ -70,12 +71,17 @@ var app = {
 				thrPosTextVal.innerText = dataThrPos;
 				voltTextVal.innerText = dataVolt;
 				tempCoolTextVal.innerText = dataTempCool;
+				rpmTextVal.innerText = dataRpm;
+				flvTextVal.innerText = dataFlv;
 			});
 		}
 
 	, changeRpm: function (i_rpm) {
 		var redLine = 81;
 		var i = 0;
+		
+		i_rpm = i_rpm.slice(0,2);
+		
 		console.log("bar RPM_" + i_rpm + "to color ");
 		for (i = 0; i > i_rpm, i < redLine; i++) {
 			var l_rpm = "RPM_" + i;
