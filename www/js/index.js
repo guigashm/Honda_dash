@@ -160,15 +160,15 @@ var app = {
 		}
 	, changeFlv: function (i_flv) {
 		var i = 0;
-		for (i = 1; i > i_flv, i < 11; i++) {
+		for (i = 1; i > i_flv, i < 22; i++) {
 			var l_flv = "FLV_" + i;
 			var flvBar = document.getElementById(l_flv);
 			if (flvBar !== "") {
-				if (i_flv < 10 + 1 && i_flv < i) {
+				if (i_flv < 22 + 1 && i_flv < i) {
 					flvBar.style.setProperty("fill", "#42210B");
 				}
 				else {
-					if (i_flv < 10 && i_flv > i) {
+					if (i_flv < 22 && i_flv > i) {
 						flvBar.style.setProperty("fill", "#FFA700");
 					}
 				}
