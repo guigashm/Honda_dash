@@ -31,21 +31,29 @@
     .dashText {
     	color: #9d6e16;
     	font-family: redSeven;
-    	display: inline-block;
+    	display: inline-grid;
 		margin-right: 2px;
 		text-align: left;
+    }
+
+    .dashTextGroup {
+    	display: inline-table;
+		text-align: center;
+		margin-right: 25px;
+	    width: 200px;
     }
 
     .dashTextVal {
     	color: #FFA700;
     	font-family: redSeven;
     	display: inline-block;
-		margin-right: 30px;
-		text-align: right;
+		margin-right: 40px;
+		text-align: center;
+		font-size: 25px;
     }
     
 #watertemp {
-	display:inline-block;
+	display: inline-block;
 	border-style: none;
 }
 

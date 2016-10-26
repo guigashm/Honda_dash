@@ -62,7 +62,9 @@ var app = {
 				var dataThrPos = data.substring(3, data.search("vlt"));
 				var dataVolt = data.substring(data.search("vlt")+3, data.search("flv"));
 				var dataFlv = data.substring(data.search("flv")+3, data.search("tco"));
-				var dataTempCool = data.substring(data.search("tco")+3, data.search("spd"));
+				var dataTco = data.substring(data.search("tco")+3, data.search("ldg"));
+				var dataLdg = data.substring(data.search("ldg")+3, data.search("ign"));
+				var dataIgn = data.substring(data.search("ign")+3, data.search("spd"));	
 				var dataSpd = data.substring(data.search("spd")+3, data.search("rpm"));
 				var dataRpm = data.substring(data.search("rpm")+3, data.length - 2);
 				
@@ -71,11 +73,14 @@ var app = {
 				speedText.innerText = dataSpd;
 				thrPosTextVal.innerText = dataThrPos;
 				voltTextVal.innerText = dataVolt;
-				tempCoolTextVal.innerText = dataTempCool;
+				tempCoolTextVal.innerText = dataTco;
 				rpmTextVal.innerText = dataRpm;
 				flvTextVal.innerText = dataFlv;
+				loadgTextVal.innerText = dataLdg;
+				ignTextVal.innerText = dataIgn;
 				
 				app.changeFlv(dataFlv);
+				app.changeTco(dataTco);
 			});
 		}
 
@@ -160,16 +165,38 @@ var app = {
 		}
 	, changeFlv: function (i_flv) {
 		var i = 0;
-		for (i = 1; i > i_flv, i < 22; i++) {
+		var n = 23;
+		for (i = 1; i > i_flv, i < n; i++) {
 			var l_flv = "FLV_" + i;
 			var flvBar = document.getElementById(l_flv);
 			if (flvBar !== "") {
-				if (i_flv < 22 + 1 && i_flv < i) {
+				if (i_flv < n + 1 && i_flv < i) {
 					flvBar.style.setProperty("fill", "#42210B");
 				}
 				else {
-					if (i_flv < 22 && i_flv > i) {
+					if (i_flv < n && i_flv > i) {
 						flvBar.style.setProperty("fill", "#FFA700");
+					}
+				}
+			}
+		}
+	}
+	, changeTco: function (i_tco) {
+		var i = 0;
+		var n = 23;
+		
+       i_tco = i_tco.slice(0,1);
+		
+		for (i = 1; i > i_tco, i < n; i++) {
+			var l_tco = "TCO_" + i;
+			var tcoBar = document.getElementById(l_tco);
+			if (tcoBar !== "") {
+				if (i_tco < n + 1 && i_tco < i) {
+					tcoBar.style.setProperty("fill", "#42210B");
+				}
+				else {
+					if (i_tco < n && i_tco > i) {
+						tcoBar.style.setProperty("fill", "#FFA700");
 					}
 				}
 			}
