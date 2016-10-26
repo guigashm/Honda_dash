@@ -67,12 +67,15 @@ var app = {
 				var dataRpm = data.substring(data.search("rpm")+3, data.length - 2);
 				
 				app.changeRpm(dataRpm);
+				
 				speedText.innerText = dataSpd;
 				thrPosTextVal.innerText = dataThrPos;
 				voltTextVal.innerText = dataVolt;
 				tempCoolTextVal.innerText = dataTempCool;
 				rpmTextVal.innerText = dataRpm;
 				flvTextVal.innerText = dataFlv;
+				
+				app.changeFlv(dataFlv);
 			});
 		}
 
@@ -82,7 +85,7 @@ var app = {
 		
 		i_rpm = i_rpm.slice(0,2);
 		
-		console.log("bar RPM_" + i_rpm + "to color ");
+		//console.log("bar RPM_" + i_rpm + "to color ");
 		for (i = 0; i > i_rpm, i < redLine; i++) {
 			var l_rpm = "RPM_" + i;
 			var rpmBar = document.getElementById(l_rpm);
@@ -155,6 +158,23 @@ var app = {
 				break;
 			}
 		}
+	, changeFlv: function (i_flv) {
+		var i = 0;
+		for (i = 1; i > i_flv, i < 11; i++) {
+			var l_flv = "FLV_" + i;
+			var flvBar = document.getElementById(l_flv);
+			if (flvBar !== "") {
+				if (i_flv < 10 + 1 && i_flv < i) {
+					flvBar.style.setProperty("fill", "#42210B");
+				}
+				else {
+					if (i_flv < 10 && i_flv > i) {
+						flvBar.style.setProperty("fill", "#FFA700");
+					}
+				}
+			}
+		}
+	}
 		///////////////////////////////////////////////////////////////
 
 	, timeoutId: 0
