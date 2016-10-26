@@ -164,7 +164,7 @@ var app = {
 			var flvBar = document.getElementById(l_flv);
 			if (flvBar !== "") {
 				if (i_flv < 11 + 1 && i_flv < i) {
-					flvBar.style.setProperty("fill", "#8d5c00");
+					flvBar.style.setProperty("fill", "#42210B");
 				}
 				else {
 					if (i_flv < 11 && i_flv > i) {
